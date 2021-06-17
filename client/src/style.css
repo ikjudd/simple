@@ -85,6 +85,15 @@ button:hover {
   margin-top: 200px
 }
 
+a {
+  text-decoration: none;
+  color: white
+}
+
+a:hover{
+  color: yellowgreen
+}
+
 input[type="range"] {
   position: relative;
   -webkit-appearance: none;

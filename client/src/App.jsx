@@ -8,6 +8,7 @@ import Search from './Search.jsx'
 // instantiate the spotifyapi component
 const spotifyWebApi = new SpotifyWebApi();
 
+
 const SpotifyLogin = () => {
 
     return (
@@ -28,6 +29,7 @@ const SpotifyLogin = () => {
     // declared a const searchArray and assigned it to the nested prop on the state
 
 class App extends Component {
+
     constructor(){
         super()
         const params = this.getHashParams();
@@ -37,25 +39,26 @@ class App extends Component {
         if (token){
             spotifyWebApi.setAccessToken(token);
         }
+
         this.state = {
+            clicked: false,
             loggedIn: token ? true : false,
             name: null,
             image: null,
-            searchResults: {
-                search: null,
-                artist: null,
-                title: null,
-                uri: null
-            }
+            searchResults: []
         }
+
         this.getNowPlaying = this.getNowPlaying.bind(this)
         this.getHashParams = this.getHashParams.bind(this)
         this.handleKeyDown = this.handleKeyDown.bind(this)
+        this.openPlayer = this.openPlayer.bind(this)
+
     }
 
  
 
     // our hashing algo provided by spotify
+
     getHashParams() {
         var hashParams = {};
         var e, r = /([^&;=]+)=?([^&;]*)/g,
@@ -66,8 +69,9 @@ class App extends Component {
         return hashParams;
       }
 
+      //   use a native method for the api to find out what's currently playing
+
       getNowPlaying(){
-        //   use a native method for the api to find out what's currently playing
        const currentTrack = spotifyWebApi.getMyCurrentPlayingTrack()
        console.log(currentTrack.item)
 
@@ -82,6 +86,7 @@ class App extends Component {
     }
 
     //   handling event of enter key
+
       handleKeyDown = (event) => {
 
         if (event.key === 'Enter') {
@@ -92,48 +97,47 @@ class App extends Component {
 
             let cancel = false;
             
-            spotifyWebApi.searchTracks(`artist: ${this.state.search}`, {limit: 5, offset: 10})
+            spotifyWebApi.searchTracks(event.target.value, {limit: 3, offset: 10})
             .then((res) => {
                 console.log(res.tracks.items)
                 if (cancel) return;
-                res.tracks.items.map( (track) => {
-                    // const smallestImage = track.album.images.reduce(
-                    //     (smallest, image) => {
-                    //         image.height < smallest.height ? image : smallest
-                    //     }, track.album.images[0])
-                    this.setState({
-                        ...this.state,
-                        searchResults:{
+                this.setState({...this.state, searchResults: res.tracks.items})
 
-                            artist: track.artists[0].name,
-                            title: track.name,
-                            uri: track.uri,
-                            // albumUrl: smallestAlbumImage.url
-                        }
-                    })
-                    }
-                )
         })
         // make the request, and if a new request is made in this time period, then cancel that request
         return () => cancel = true;
       }
 }
     
+    openPlayer = (e) => {
+        this.setState({
+            ...this.state,
+            clicked: true
+        })
+        console.log('hello')
+    }
 
+    // Player = () => {
+    //     return (
+    //         <div className="display grid">
+    //             <audio src={this.state.url} type="audio/mp3"></audio>
+    //         </div>
+    //     )
+    // }
 
     render(){
 
-        console.log('this is our artist ' + this.state.searchResults.artist)
-        console.log('this is our song ', this.state.searchResults.title)
-        console.log('this is the uri ', this.state.searchResults.uri)
-        const searchArray = Array.from(this.state)
-        console.log(searchArray)
+        console.log('this is our data ', this.state.searchResults.artists)
+        // const searchArray = Array.from(this.state)
+        // console.log(searchArray)
 
         return(
             <div className="App">
 
                 <Header />
+
                <div className='login grid'>
+
                {!this.state.loggedIn && 
                 <SpotifyLogin />
                }
@@ -143,12 +147,39 @@ class App extends Component {
                    <div onKeyDown={this.handleKeyDown}>
                    <Search />
                    </div>}
-{/* 
-                {this.state.loggedIn && this.state.searchResults.artist &&
-                <div className='display grid'>{searchArray.searchResults.map(result => 
-                    <p>{this.state.searchResults.artist} ~ {this.state.searchResults.title}</p>
+
+
+
+                {this.state.clicked &&
+   <div className="display grid">
+<figure>
+    <figcaption>Listen to {this.state.artist}</figcaption>
+    <audio
+        controls
+        src={this.state.searchResults.preview_url}>
+            Your browser does not support the
+            <code>audio</code> element.
+    </audio>
+</figure>             </div>
+                }
+
+                {this.state.loggedIn && this.state.searchResults &&
+                <div className='display grid' style={{cursor: 'pointer'}}
+                // onClick=
+                // {()=>{
+                // this.openPlayer()
+                // }}
+                >
+                    {this.state.searchResults.map(result => 
+
+                
+
+                    <a href={result.preview_url}>
+                        <p>{result.artists[0].name} - {result.name}
+                    </p>
+                </a>
                     )}</div>
-                }     */}
+                }    
 
                 {this.state.name &&                 
                <div 
@@ -182,7 +213,3 @@ class App extends Component {
 }}
 
 export default App;
-
-               {/* <div className='media-player'>
-               <Player /> 
-                </div> */}
