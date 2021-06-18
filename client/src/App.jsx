@@ -4,6 +4,8 @@ import '/src/style.css';
 import SpotifyWebApi from 'spotify-web-api-js'
 import Header from './Header.jsx'
 import Search from './Search.jsx'
+import SpotifyPlayer from 'react-spotify-web-playback'
+
 // import Player from './Player.jsx'
 // instantiate the spotifyapi component
 const spotifyWebApi = new SpotifyWebApi();
@@ -41,8 +43,10 @@ class App extends Component {
         }
 
         this.state = {
+            id: null,
             clicked: false,
             loggedIn: token ? true : false,
+            artist: null,
             name: null,
             image: null,
             searchResults: []
@@ -77,6 +81,7 @@ class App extends Component {
 
        spotifyWebApi.getMyCurrentPlayingTrack()
        .then( (res) => {
+           console.log(res.item)
             this.setState({
                 ...this.state,
                 name: res.item.name,
@@ -112,25 +117,21 @@ class App extends Component {
     openPlayer = (e) => {
         this.setState({
             ...this.state,
-            clicked: true
+            clicked: true,
+            id: e.target.id,
+
         })
-        console.log('hello')
+        console.log('hello', e.target.id)
+        
     }
 
-    // Player = () => {
-    //     return (
-    //         <div className="display grid">
-    //             <audio src={this.state.url} type="audio/mp3"></audio>
-    //         </div>
-    //     )
-    // }
 
     render(){
 
         console.log('this is our data ', this.state.searchResults.artists)
-        // const searchArray = Array.from(this.state)
-        // console.log(searchArray)
 
+        const params = this.getHashParams();
+        const token = params.access_token;
         return(
             <div className="App">
 
@@ -152,7 +153,13 @@ class App extends Component {
 
                 {this.state.clicked &&
    <div className="display grid">
-<figure>
+       {/* {this.state.searchResults[this.state.id].uri} */}
+       <SpotifyPlayer 
+       token={token}
+       uris={[this.state.searchResults[this.state.id].uri]}/>
+
+
+{/* <figure>
     <figcaption>Listen to {this.state.artist}</figcaption>
     <audio
         controls
@@ -160,8 +167,10 @@ class App extends Component {
             Your browser does not support the
             <code>audio</code> element.
     </audio>
-</figure>             </div>
+</figure>       */}      
+</div> 
                 }
+                    {/* ~~~~~~SEARCH BAR AND RESULTS ~~~~~~*/}
 
                 {this.state.loggedIn && this.state.searchResults &&
                 <div className='display grid' style={{cursor: 'pointer'}}
@@ -170,21 +179,26 @@ class App extends Component {
                 // this.openPlayer()
                 // }}
                 >
-                    {this.state.searchResults.map(result => 
+                    {this.state.searchResults.map((result, i) => 
 
                 
+                    
+                    // <a href={result.preview_url}>
 
-                    <a href={result.preview_url}>
-                        <p>{result.artists[0].name} - {result.name}
+                        <p onClick={(e) => this.openPlayer(e)} key={i} id={i}>
+                            {result.artists[0].name} - {result.name}
                     </p>
-                </a>
+                // </a>
                     )}</div>
                 }    
+
+
+                {/* SUGGESTED SONG COMPONENT */}
 
                 {this.state.name &&                 
                <div 
                className='grid-item content grid'> 
-               Now Playing: { this.state.name }
+               Simpleadmin suggests: { this.state.name}
                </div>
                 }
 
@@ -193,14 +207,14 @@ class App extends Component {
                className='content image'>
                    <img 
                    src={`${this.state.image.url}`} 
-                   style={{width:450}}/>
+                   style={{width:250}}/>
                    </div>}
 
                {this.state.loggedIn && 
                <button 
                className='nowPlaying grid' 
                onClick={() => this.getNowPlaying()} >
-                   Check Now Playing
+                   Need a suggestion?
                </button>
                }
 
