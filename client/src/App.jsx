@@ -49,7 +49,8 @@ class App extends Component {
             artist: null,
             name: null,
             image: null,
-            searchResults: []
+            searchResults: [],
+            currentlyListening: null,
         }
 
         this.getNowPlaying = this.getNowPlaying.bind(this)
@@ -102,7 +103,7 @@ class App extends Component {
 
             let cancel = false;
             
-            spotifyWebApi.searchTracks(event.target.value, {limit: 3, offset: 10})
+            spotifyWebApi.searchTracks(event.target.value, {limit: 5, offset: 10})
             .then((res) => {
                 console.log(res.tracks.items)
                 if (cancel) return;
@@ -119,9 +120,9 @@ class App extends Component {
             ...this.state,
             clicked: true,
             id: e.target.id,
-
+            currentlyListening: e.target.innerHTML
         })
-        console.log('hello', e.target.id)
+        console.log('hello', e.target.innerHTML)
         
     }
 
@@ -152,11 +153,22 @@ class App extends Component {
 
 
                 {this.state.clicked &&
-   <div className="display grid">
+   <div className="display grid" style={{'width': 400}}>
        {/* {this.state.searchResults[this.state.id].uri} */}
        <SpotifyPlayer 
        token={token}
-       uris={[this.state.searchResults[this.state.id].uri]}/>
+       uris={[this.state.searchResults[this.state.id].uri]}
+       styles= {{
+           bgColor:'#000000',
+           color:'#dbdbdb',
+           sliderHandleColor: '#dbdbdb',
+           sliderColor: 'yellowgreen',
+           sliderTrackColor: '#000000',
+           trackNameColor:'#dbdbdb',
+           'font-family': "'Helvetica Neue', sans-serif",
+           'margin-bottom': '20px'
+       }}
+       />
 
 
 {/* <figure>
@@ -197,8 +209,8 @@ class App extends Component {
 
                 {this.state.name &&                 
                <div 
-               className='grid-item content grid'> 
-               Simpleadmin suggests: { this.state.name}
+               className='grid-item content grid' style={{'margin-bottom': '20px'}}> 
+               You are now listening to {this.state.currentlyListening}, enjoy!
                </div>
                 }
 
@@ -210,11 +222,11 @@ class App extends Component {
                    style={{width:250}}/>
                    </div>}
 
-               {this.state.loggedIn && 
+               {this.state.loggedIn && this.state.clicked &&
                <button 
                className='nowPlaying grid' 
                onClick={() => this.getNowPlaying()} >
-                   Need a suggestion?
+                   Need a track ID?
                </button>
                }
 

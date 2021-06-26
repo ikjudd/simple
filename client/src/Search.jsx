@@ -6,7 +6,7 @@ import Spotify from 'spotify-web-api-js'
 export default function Search({code}){
     return (
         <div className='search grid'>
-            <input className='input grid-item' placeholder="What else?" 
+            <input className='input grid-item' placeholder="What would you like to listen to?" 
             />
         </div>
     )
