@@ -1,0 +1,99 @@
+*:before,
+*:after,
+* {
+  box-sizing: border-box;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+  color: #fff;
+  background-color: #000;
+  margin: 0;
+}
+input,
+textarea {
+  -webkit-font-smoothing: antialiased;
+  font: inherit;
+  color: #fff;
+}
+
+.input {
+  background: none;
+  font-size: 72px;
+  width: calc(100vw - 4rem);
+  border: none;
+  outline: none;
+  text-align: center;
+  padding: 0;
+  margin-top: 200px;
+  margin-bottom: 200px
+}
+
+.header{
+  line-height: 50px;
+}
+
+.block {
+  display: block;
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.App {
+  min-height: 100vh;
+  padding: 5vh 2rem;
+  /* display: flex; */
+  flex-direction: column;
+  margin-left: auto;
+  margin-right: auto
+}
+.search {
+  margin: auto;
+}
+.grid {
+  display: grid;
+  place-items: center;
+}
+/* .grid-item {
+  grid-area: 1/1;
+} */
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  padding: 0;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  font-family: 'Helvetica Neue', sans-serif;
+  font-weight: bold;
+  font-size: 24px;
+
+}
+
+button:hover {
+  color: greenyellow
+}
+
+.nowPlaying{
+  margin-top: 50px;
+}
+
+a {
+  text-decoration: none;
+  color: white
+}
+
+a:hover{
+  color: yellowgreen
+}
+
+p:hover{
+  color: yellowgreen
+}
