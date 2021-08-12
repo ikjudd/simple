@@ -22,14 +22,6 @@ const SpotifyLogin = () => {
     )
 }
 
-// PROBLEM TO FIX 6-20
-    // created nested state property containing search results
-    // need to access that nested property / the props inside
-    // adjusted setstate to attempt to set the searchResults prop in state
-    // tried mapping state.searchResults since this.state.map doesn't cut it
-    // this.state.searchResult does access props inside of that nested prop
-    // declared a const searchArray and assigned it to the nested prop on the state
-
 class App extends Component {
 
     constructor(){
@@ -170,37 +162,23 @@ class App extends Component {
        }}
        />
 
-
-{/* <figure>
-    <figcaption>Listen to {this.state.artist}</figcaption>
-    <audio
-        controls
-        src={this.state.searchResults.preview_url}>
-            Your browser does not support the
-            <code>audio</code> element.
-    </audio>
-</figure>       */}      
+  
 </div> 
                 }
                     {/* ~~~~~~SEARCH BAR AND RESULTS ~~~~~~*/}
 
                 {this.state.loggedIn && this.state.searchResults &&
                 <div className='display grid' style={{cursor: 'pointer'}}
-                // onClick=
-                // {()=>{
-                // this.openPlayer()
-                // }}
+        
                 >
                     {this.state.searchResults.map((result, i) => 
 
                 
                     
-                    // <a href={result.preview_url}>
 
                         <p onClick={(e) => this.openPlayer(e)} key={i} id={i}>
                             {result.artists[0].name} - {result.name}
                     </p>
-                // </a>
                     )}</div>
                 }    
 
