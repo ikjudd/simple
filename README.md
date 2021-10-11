@@ -1,5 +1,5 @@
 # simple
-Welcome! simple is an online listening platform built with the intention of creating a Spotify player stripped of its noisier UX / UI concepts, leaving the end-user with a music player that is stripped down and... yes ... simple.  
+simple is an online listening platform built with the intention of creating a Spotify player stripped of its noisier UX / UI concepts, leaving the end-user with a music player that is stripped down and... yes ... simple.  
 
 ![alt text](https://media.giphy.com/media/h2sk3LMYpPWGj6z2wr/giphy.gif)
 
