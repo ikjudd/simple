@@ -1,7 +1,7 @@
 # simple
 Welcome! simple is an online listening platform built with the intention of creating a Spotify player stripped of its noisier UX / UI concepts, leaving the end-user with a music player that is stripped down and... yes ... simple.
 
-![alt text](https://ibb.co/p3pScPd)
+![alt text](https://media.giphy.com/media/h2sk3LMYpPWGj6z2wr/giphy.gif)
 
 Getting started...
 1. Run **npm i** in /authServer and /client to install all necessary dependencies.
