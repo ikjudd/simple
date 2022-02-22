@@ -6,7 +6,7 @@
 
 body {
   -webkit-font-smoothing: antialiased;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   font-weight: bold;
   font-size: 24px;
   color: #fff;
@@ -29,10 +29,10 @@ textarea {
   text-align: center;
   padding: 0;
   margin-top: 200px;
-  margin-bottom: 200px
+  margin-bottom: 200px;
 }
 
-.header{
+.header {
   line-height: 50px;
 }
 
@@ -51,7 +51,7 @@ textarea {
   /* display: flex; */
   flex-direction: column;
   margin-left: auto;
-  margin-right: auto
+  margin-right: auto;
 }
 .search {
   margin: auto;
@@ -71,29 +71,28 @@ button {
   padding: 0;
   color: white;
   -webkit-font-smoothing: antialiased;
-  font-family: 'Helvetica Neue', sans-serif;
+  font-family: "Helvetica Neue", sans-serif;
   font-weight: bold;
   font-size: 24px;
-
 }
 
 button:hover {
-  color: greenyellow
+  color: greenyellow;
 }
 
-.nowPlaying{
+.nowPlaying {
   margin-top: 50px;
 }
 
 a {
   text-decoration: none;
-  color: white
+  color: white;
 }
 
-a:hover{
-  color: yellowgreen
+a:hover {
+  color: yellowgreen;
 }
 
-p:hover{
-  color: yellowgreen
+p:hover {
+  color: yellowgreen;
 }

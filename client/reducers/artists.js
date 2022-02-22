@@ -1,7 +1,8 @@
-const artistsReducer = ( state = {}, action) => {
-    switch(action.type){
-        default: return state;
-    }
-}
+const artistsReducer = (state = {}, action) => {
+  switch (action.type) {
+    default:
+      return state;
+  }
+};
 
 export default artistsReducer;
